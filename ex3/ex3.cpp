@@ -46,13 +46,30 @@ class Sender : public cSimpleModule {
 protected:
 
   virtual void initialize() override {
-    simtime_t delay = SimTime(distribution_exponential.draw());
+    useLCG = par("useLCG");
+    EV << "LCG Mode is: " << useLCG << std::endl;
+    simtime_t delay;
+    if (useLCG) {
+      delay = SimTime(distribution_exponential.draw());
+      EV << "LCG-drawn delay: " << delay << endl;
+    } else {
+      delay = par("delayTime");
+      EV << "Mersenne-Twister delay: " << delay << endl;
+    }
+
     scheduleAt(simTime() + delay, new cMessage("selfmsg"));
   }
 
   virtual void handleMessage(cMessage *msg) override {
     delete msg;
-    simtime_t delay = SimTime(distribution_exponential.draw());
+    simtime_t delay;
+    if (useLCG) {
+      delay = SimTime(distribution_exponential.draw());
+      EV << "LCG-drawn delay: " << delay << endl;
+    } else {
+      delay = par("delayTime");
+      EV << "Mersenne-Twister delay: " << delay << endl;
+    }
     // EV << "Delay expired, sending another message. New delay is: " << delay << endl;
     // Send out a message to the reciever.
     send(new cMessage("msg"), "out");
@@ -63,6 +80,7 @@ protected:
 private:
   Uniform distribution_uniform;
   Exponential distribution_exponential;
+  bool useLCG;
 };
 
 Define_Module(Sender);

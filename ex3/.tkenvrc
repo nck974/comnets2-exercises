@@ -1,4 +1,4 @@
 # Partial OMNeT++/Tkenv config file -- see $HOME/.tkenvrc as well
-config default-configname	{Exercise3}
+config default-configname	{LinearCongruentialRNG}
 config default-runnumber	{0}
 

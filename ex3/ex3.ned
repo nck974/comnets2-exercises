@@ -10,6 +10,7 @@ simple Sender {
   parameters:
     @display("i=block/source");
     volatile double delayTime @unit(s);
+    bool useLCG;
   gates:
     output out;
 }
