@@ -1,11 +1,14 @@
 simple Reciever
 {
+    parameters:
+      @display("i=block/sink");
     gates:
-        input in;
+      input in;
 }
 
 simple Sender {
   parameters:
+    @display("i=block/source");
     volatile double delayTime @unit(s);
   gates:
     output out;
