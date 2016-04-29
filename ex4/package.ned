@@ -6,16 +6,21 @@ import inet.nodes.inet.StandardHost;
 
 @license(LGPL);
 
+
 network Ex4Network
 {
     @display("bgb=257,302");
-
-    types:
+    
+   	
+	types:
         channel Channel extends ned.DatarateChannel
         {
-            datarate = 1Mbps;
-            delay = 200ms;
-            ber = 1e-7;
+            //datarate = 1Mbps;
+            //delay = 200ms;
+            //ber = 1e-7;
+           datarate=default(1 Mbps);
+           delay=default(200ms);
+           ber=default(1e-7);
         }
     submodules:
         client: StandardHost {
@@ -29,4 +34,5 @@ network Ex4Network
         }
     connections:
         client.pppg++ <--> Channel <--> server.pppg++;
-}
+ }
+ 
